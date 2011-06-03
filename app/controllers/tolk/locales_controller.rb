@@ -36,10 +36,21 @@ module Tolk
       Tolk::Locale.create!(params[:tolk_locale])
       redirect_to :action => :index
     end
+    
+    def delete
+      # begin
+        Tolk::Locale.destroy_all :id=>params[:ids]
+      # rescue Exception=>e
+        # Rails.logger.info e
+      # ensure
+        redirect_to :action => :index
+      # end
+    end
 
     private
 
     def find_locale
+      
       @locale = Tolk::Locale.find_by_name!(params[:id])
     end
   end

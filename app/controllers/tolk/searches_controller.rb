@@ -9,7 +9,8 @@ module Tolk
     private
 
     def find_locale
-      @locale = Tolk::Locale.find_by_name!(params[:locale])
+      uri_locale = CGI.parse(URI.parse(request.fullpath).query)["locale"].to_s
+      @locale = Tolk::Locale.find_by_name!(uri_locale) #params[:locale]
     end
   end
 end
