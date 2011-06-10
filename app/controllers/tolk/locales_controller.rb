@@ -5,12 +5,16 @@ module Tolk
 
     def index
       @locales = Tolk::Locale.secondary_locales
+      respond_to do |format|
+        format.html {render "/admin/tolk/locales/index", :layout=>"admin"}
+      end
     end
   
     def show
       respond_to do |format|
         format.html do
           @phrases = @locale.phrases_without_translation(params[:page])
+          render "/admin/tolk/locales/show", :layout=>"admin"
         end
         format.atom { @phrases = @locale.phrases_without_translation(params[:page], :per_page => 50) }
         format.yml { render :text => @locale.to_hash.ya2yaml(:syck_compatible => true) }
@@ -25,11 +29,16 @@ module Tolk
 
     def all
       @phrases = @locale.phrases_with_translation(params[:page])
+      respond_to do |format|
+        format.html {render "/admin/tolk/locales/all", :layout=>"admin"}
+      end
     end
 
     def updated
       @phrases = @locale.phrases_with_updated_translation(params[:page])
-      render :all
+      respond_to do |format|
+        format.html {render "/admin/tolk/locales/all", :layout=>"admin"}
+      end
     end
 
     def create

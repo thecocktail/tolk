@@ -73,6 +73,10 @@ module Tolk
 
     cattr_accessor :special_keys
     self.special_keys = ['activerecord.models']
+    
+    acts_as_audited
+    has_many :translations_audits, :through => :translations,
+       :class_name => 'Audit', :source => :audits, :order => "created_at DESC"
 
     class << self
       def primary_locale(reload = false)

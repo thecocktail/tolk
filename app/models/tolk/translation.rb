@@ -1,7 +1,10 @@
 module Tolk
   class Translation < ActiveRecord::Base
+    
+    
+    
     set_table_name "tolk_translations"
-
+    acts_as_audited :only=>[:text, :locale_id, :previous_text]
     named_scope :containing_text, lambda { |query|
       { :conditions => ["tolk_translations.text LIKE ?", "%#{query}%"] }
     }
