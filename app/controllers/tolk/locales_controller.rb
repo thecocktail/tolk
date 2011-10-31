@@ -9,6 +9,13 @@ module Tolk
         format.html {render "/admin/tolk/locales/index", :layout=>"admin"}
       end
     end
+    
+    def new
+      @locale ||= Tolk::Locale.new
+      respond_to do |format|
+        format.html {render "/admin/tolk/locales/new", :layout=>"admin"}
+      end
+    end
   
     def show
       respond_to do |format|
