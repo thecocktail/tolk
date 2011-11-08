@@ -1,5 +1,6 @@
 module Tolk
   class LocalesController < Tolk::ApplicationController
+    before_filter :set_locale
     before_filter :find_locale, :only => [:show, :all, :update, :updated]
     before_filter :ensure_no_primary_locale, :only => [:all, :update, :show, :updated]
 
@@ -65,9 +66,13 @@ module Tolk
 
     private
 
-    def find_locale
-      
+    def find_locale  
       @locale = Tolk::Locale.find_by_name!(params[:id])
     end
+    
+    def set_locale
+      I18n.locale = "en"
+    end
+    
   end
 end
