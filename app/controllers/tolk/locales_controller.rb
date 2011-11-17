@@ -41,6 +41,13 @@ module Tolk
         format.html {render "/admin/tolk/locales/all", :layout=>"admin"}
       end
     end
+    
+    
+    def dump_all
+      Tolk::Locale.dump_all
+      redirect_to tolk_root_path
+    end
+
 
     def updated
       @phrases = @locale.phrases_with_updated_translation(params[:page])
