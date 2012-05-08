@@ -5,7 +5,7 @@ module Tolk
     before_filter :ensure_no_primary_locale, :only => [:all, :update, :show, :updated]
 
     def index
-      @locales = Tolk::Locale.secondary_locales
+      @locales ||= Tolk::Locale.secondary_locales
       respond_to do |format|
         format.html {render "/admin/tolk/locales/index", :layout=>"admin"}
       end
